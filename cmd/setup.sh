@@ -3,12 +3,12 @@
 do_setup() {
     idx=$1
     mkdir -p conf data bin
-    cp "$ROOTDIR/homi-output/scripts/genesis.json" .
-    cp "$ROOTDIR/homi-output/scripts/static-nodes.json" .
+    DATA_DIR="$PWD/data"
+    cp "$ROOTDIR/homi-output/scripts/genesis.json" "$DATA_DIR/"
+    cp "$ROOTDIR/homi-output/scripts/static-nodes.json" "$DATA_DIR/"
     cp `which kcn` "$ROOTDIR/kcnd" bin/
     KEY="$ROOTDIR/homi-output/keys/validator$idx"
-    DATA_DIR="$PWD/data"
-    kcn --datadir "$DATA_DIR" init "$PWD/genesis.json"
+    kcn --datadir "$DATA_DIR" init "$DATA_DIR/genesis.json"
     echo NETWORK= >> conf/kcnd.conf
     echo DATA_DIR=$DATA_DIR >> conf/kcnd.conf
     echo LOG_DIR=$DATA_DIR/log >> conf/kcnd.conf
@@ -17,12 +17,12 @@ do_setup() {
     echo NETWORK_ID=2018 >> conf/kcnd.conf
     echo NO_DISCOVER=1 >> conf/kcnd.conf
     ADDITIONAL=""
-    ADDITIONAL="$ADDITIONAL --identity CN-$idx"
-    ADDITIONAL="$ADDITIONAL --nodekeyhex $(cat $KEY | jq '.Nodekey')"
+    ADDITIONAL="$ADDITIONAL --identity CN-$((idx))"
+    ADDITIONAL="$ADDITIONAL --nodekeyhex $(cat $KEY | jq -r '.Nodekey')"
     ADDITIONAL="$ADDITIONAL --debug --metrics"
-    ADDITIONAL="$ADDITIONAL --port $((idx+32323))"
-    ADDITIONAL="$ADDITIONAL --rpcport $((idx+8551))"
-    echo ADDITIONAL=\"$ADDITIONAL\" >> conf/kcnd.conf
+    ADDITIONAL="$ADDITIONAL --port $((idx+32323-1))"
+    ADDITIONAL="$ADDITIONAL --rpcport $((idx+8551-1))"
+    echo ADDITIONAL=\'$ADDITIONAL\' >> conf/kcnd.conf
     echo REWARDBASE=$(cat $KEY | jq '.Address') >> conf/kcnd.conf
 }
 
