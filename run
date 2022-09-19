@@ -1,0 +1,36 @@
+#!/bin/bash
+set -e
+
+ROOTDIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 [ARGUMENT]"
+    echo "  setup"
+    echo "  start"
+    echo "  stop"
+    echo "  clean"
+    exit 22
+fi
+
+FN="cmd/$1.sh"
+[ -f $FN ] && source "$FN"
+
+case "$1" in
+  "setup")
+    setup
+    ;;
+  "start")
+    start
+    ;;
+  "stop")
+    stop
+    ;;
+  "clean")
+    clean
+    ;;
+  *)
+    echo "no such option"
+    exit 1
+    ;;
+esac
+
