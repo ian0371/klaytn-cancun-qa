@@ -17,3 +17,5 @@ Restart at binary update:
 ./run setup
 ./run start
 ```
+
+> :warning: only running kcn is supported
