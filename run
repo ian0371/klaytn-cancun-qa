@@ -28,6 +28,12 @@ case "$1" in
   "clean")
     clean
     ;;
+  "upgrade")
+    upgrade
+    ;;
+  "init")
+    init
+    ;;
   *)
     echo "no such option"
     exit 1
