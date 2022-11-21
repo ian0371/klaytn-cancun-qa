@@ -4,10 +4,10 @@ do_setup() {
     idx=$1
     mkdir -p conf data bin
     DATA_DIR="$PWD/data"
-    cp "$ROOTDIR/homi-output/scripts/genesis.json" "$DATA_DIR/"
-    cp "$ROOTDIR/homi-output/scripts/static-nodes.json" "$DATA_DIR/"
+    cp "$HOMIOUTPUT/scripts/genesis.json" "$DATA_DIR/"
+    cp "$HOMIOUTPUT/scripts/static-nodes.json" "$DATA_DIR/"
     cp `which kcn` "$ROOTDIR/kcnd" bin/
-    KEY="$ROOTDIR/homi-output/keys/validator$idx"
+    KEY="$HOMIOUTPUT/keys/validator$idx"
     kcn --datadir "$DATA_DIR" init "$DATA_DIR/genesis.json"
     echo NETWORK= >> conf/kcnd.conf
     echo DATA_DIR=$DATA_DIR >> conf/kcnd.conf
@@ -22,12 +22,13 @@ do_setup() {
     ADDITIONAL="$ADDITIONAL --debug --metrics"
     ADDITIONAL="$ADDITIONAL --port $((idx+32323-1))"
     ADDITIONAL="$ADDITIONAL --rpcport $((idx+8551-1))"
+    ADDITIONAL="$ADDITIONAL --ntp.disable"
     echo ADDITIONAL=\'$ADDITIONAL\' >> conf/kcnd.conf
     echo REWARDBASE=$(cat $KEY | jq '.Address') >> conf/kcnd.conf
 }
 
 setup() {
-    vals=$(ls -1 $ROOTDIR/homi-output/keys/nodekey* | wc -l)
+    vals=$(ls -1 $HOMIOUTPUT/keys/nodekey* | wc -l)
 
     mkdir "$ROOTDIR/output"
     pushd "$ROOTDIR/output"

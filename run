@@ -3,7 +3,7 @@ set -e
 
 ROOTDIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
 
-if [ "$#" -ne 1 ]; then
+if [ "$#" -lt 1 ]; then
     echo "Usage: $0 [ARGUMENT]"
     echo "  setup"
     echo "  start"
@@ -14,6 +14,8 @@ fi
 
 FN="cmd/$1.sh"
 [ -f $FN ] && source "$FN"
+HOMIOUTPUT=${2:-"homi-output"}
+HOMIOUTPUT="$ROOTDIR/$HOMIOUTPUT"
 
 case "$1" in
   "setup")
