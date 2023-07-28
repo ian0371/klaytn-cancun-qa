@@ -22,6 +22,7 @@ do_setup() {
     ADDITIONAL="$ADDITIONAL --debug --metrics"
     ADDITIONAL="$ADDITIONAL --port $((idx+32323-1))"
     ADDITIONAL="$ADDITIONAL --rpcport $((idx+8551-1))"
+    ADDITIONAL="$ADDITIONAL --prometheus --prometheusport $((idx+61001-1))"
     ADDITIONAL="$ADDITIONAL --ntp.disable"
     echo ADDITIONAL=\'$ADDITIONAL\' >> conf/kcnd.conf
     echo REWARDBASE=$(cat $KEY | jq '.Address') >> conf/kcnd.conf
