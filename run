@@ -9,6 +9,7 @@ if [ "$#" -lt 1 ]; then
     echo "  start"
     echo "  stop"
     echo "  clean"
+    echo "  restart"
     exit 22
 fi
 
@@ -30,6 +31,9 @@ case "$1" in
   "clean")
     clean
     ;;
+  "restart")
+    restart
+    ;;
   "upgrade")
     upgrade
     ;;
@@ -41,4 +45,3 @@ case "$1" in
     exit 1
     ;;
 esac
-
