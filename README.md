@@ -21,6 +21,10 @@ Restart at binary update:
 ./run setup
 ./run start
 ```
+Or:
+```bash
+./run restart
+```
 
 > :warning: only running kcn is supported
 
