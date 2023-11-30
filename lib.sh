@@ -16,16 +16,16 @@ declare -a nodes=(
 	"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720"
 )
 
-loopUntilCommitteeSize() {
-	# length of the rpc output from jq
-	#
+loopUntilVote() {
 	while true; do
-		if [ $1 -ne $(cast rpc klay_getCommittee -r $RPC | jq '. | length') ]; then
-			sleep 1
-		else
+		local block=$(cast rpc klay_getBlockByNumber latest false -r $RPC)
+		local voteData=$(echo $block | jq ".voteData")
+		if [ "$voteData" != "\"0x\"" ]; then
 			break
 		fi
+		sleep 0.5
 	done
+	echo $(echo $block | jq ".number" | xargs printf "%d")
 }
 
 getBlock() {
@@ -42,11 +42,27 @@ upgrade() {
 }
 
 addVal() {
-	cast rpc governance_vote governance.addvalidator ${nodes[$1]} -r $RPC
+	local targets=()
+	for idx in $*; do
+		targets+=("${nodes[$idx]}")
+	done
+	local param=$(
+		IFS=,
+		echo "${targets[*]}"
+	)
+	cast rpc governance_vote governance.addvalidator $param -r $RPC
 }
 
 removeVal() {
-	cast rpc governance_vote governance.removevalidator ${nodes[$1]} -r $RPC
+	local targets=()
+	for idx in $*; do
+		targets+=("${nodes[$idx]}")
+	done
+	local param=$(
+		IFS=,
+		echo "${targets[*]}"
+	)
+	cast rpc governance_vote governance.removevalidator $param -r $RPC
 }
 
 getBlockWithConsensus() {

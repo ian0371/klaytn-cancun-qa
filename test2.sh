@@ -1,15 +1,17 @@
 #!/bin/bash
 source ./lib.sh
 
-target=1
+target1=1 # CN2
+target2=2 # CN3
 
-removeVal $target
+removeVal $target1 $target2
 removedBlock=$(loopUntilVote)
 echo "removedBlock: $removedBlock"
 
-upgrade $target
+upgrade $target1
+upgrade $target2
 sleep 5
 
-addVal $target
+addVal $target1 $target2
 addedBlock=$(loopUntilVote)
 echo "addedBlock: $addedBlock"
