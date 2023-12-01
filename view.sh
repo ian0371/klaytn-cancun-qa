@@ -15,13 +15,14 @@ start=$2
 end=$3
 
 echo "* CN$cn"
-echo "block,committeeSize,committedSealSize"
+echo "block,committedSealSize,timestamp"
 
 for i in $(seq $start $end); do
 	output=$(getBlockWithConsensus $cn $i)
-	committeeSize=$(echo $output | jq '.committee | length')
+	# committeeSize=$(echo $output | jq '.committee | length')
+	ts=$(echo $output | jq '.timestamp' | xargs printf "%d")
 	committedSealSize=$(kcn util decode-extra <(echo $output) | jq '.committedSealSize')
-	echo "$i,$committeeSize,$committedSealSize"
+	echo "$i,$committedSealSize,$ts"
 done
 
 # for i in $(seq 1 9); do echo "$i $(output/cn$i/bin/kcn version)"; done
