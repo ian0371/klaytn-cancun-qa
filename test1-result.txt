@@ -1,18 +1,15 @@
-* Upgrade target: CN2
-* removeValidatorBlock: 9
-* addValidatorBlock: 24
-
-* CN1, CN4, CN5, CN6, CN7, CN9
-1-: 5
-
-* CN2
-1-30: 5
-31-: 5 or 6
-
-* CN3
-1-30: 5
-31-: 5 or 6
-특이사항: 54에서 6
-
-* CN8
-특이사항: 34에서 6
+- Upgrade target: CN2
+- removeValidatorBlock: 9
+- addValidatorBlock: 24
+- Expected behaviour
+  - CN1, CN4, CN5, CN6, CN7, CN9
+    - at all blocks, committedSealSize=5
+  - CN2
+    - at blocks in 1-30, committedSealSize=5
+    - at blocks in 31-60, committedSealSize=5 or 6
+- Unexpected behaviour (after addValidatorBlock)
+  - CN3
+    - at blocks in 1-30, committedSealSize=5
+    - at blocks in 31-60, committedSealSize=5 or 6
+  - CN8
+    - at block 34, committedSealSize=6

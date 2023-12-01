@@ -1,14 +1,17 @@
-* Upgrade target: CN2, CN4-6
-* Faulty node: CN3
-* upgrade start: 6
-* upgrade end: 10
+- Upgrade target: CN2, CN4-6
+- Faulty node: CN3
+- Upgrade start: 6
+- Upgrade end: 10
+- Expected behaviour
+  - Round changes
 
-block timestamps
-5:1701412599
-6:1701412600
-7:1701412601
-8:1701412602
-9:1701412603
+Note: block timestamps
+```
+05:1701412599
+06:1701412600
+07:1701412601
+08:1701412602
+09:1701412603
 10:1701412604
 11:1701412619 << RC
 12:1701412629 << RC
@@ -20,3 +23,4 @@ block timestamps
 18:1701412635
 19:1701412636
 20:1701412637
+```
