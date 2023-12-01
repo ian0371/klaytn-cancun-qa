@@ -2,13 +2,19 @@
 source ./lib.sh
 
 removeVal 2 3
-removedBlock=$(loopUntilVote)
-echo "removedBlock: $removedBlock"
+block=$(loopUntilVote)
+echo "removeValidatorBlock: $block"
 
-upgrade 2 &
-upgrade 3 &
+stop 2
+stop 3
+
+upgrade 2
+upgrade 3
 sleep 10
 
+start 2
+start 3
+
 addVal 2 3
-addedBlock=$(loopUntilVote)
-echo "addedBlock: $addedBlock"
+block=$(loopUntilVote)
+echo "addValidatorBlock: $block"

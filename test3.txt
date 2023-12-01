@@ -1,17 +1,22 @@
-removedBlock: 9
-addedBlock: 20
+* Upgrade target: CN2-5
+* removeValidatorBlock: 9
+* addValidatorBlock: 25
 
-* CN1, CN6-9
-block,committeeSize,committedSealSize
-1,9,5
-...
-9,9,5
-10,5,3
-...
-20,5,3
-21,9,5
+* CN1, CN8
+1-9: 5
+10-25: 3
+26-: 5
 
 * CN2-5
-1-9: 9,5
-10-20: 5,3
-21-: 9,5 or 9,6
+1-9: 5
+10-25: 3
+26-: 5 or 6
+
+* CN6
+특이사항: 59에서 6
+
+* CN7
+특이사항: 51에서 6
+
+* CN9
+특이사항: 58에서 6

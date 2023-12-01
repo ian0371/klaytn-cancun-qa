@@ -32,12 +32,22 @@ getBlock() {
 	cast rpc klay_getBlockByNumber "latest" false -r $RPC | jq -r '.number' | xargs printf "%d"
 }
 
-upgrade() {
+start() {
+	pushd "$ROOTDIR/output/cn$1" >/dev/null
+	bin/kcnd start >/dev/null
+	popd >/dev/null
+}
+
+stop() {
 	pushd "$ROOTDIR/output/cn$1" >/dev/null
 	bin/kcnd stop >/dev/null
+	popd >/dev/null
+}
+
+upgrade() {
+	pushd "$ROOTDIR/output/cn$1" >/dev/null
 	rm -f bin/kcn
 	ln -s $ROOTDIR/kcn-v1.12.0 bin/kcn
-	bin/kcnd start >/dev/null
 	popd >/dev/null
 }
 
