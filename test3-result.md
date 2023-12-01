@@ -1,7 +1,7 @@
 - Upgrade target: CN2 to CN5
 - removeValidatorBlock: 9
 - addValidatorBlock: 25
-- Expected behaviour
+- Expected behavior
   - CN1, CN8
     - at block 1-9: committedSealSize=5
     - at block 10-25: committedSealSize=3
@@ -10,7 +10,7 @@
     - at block 1-9: committedSealSize=5
     - at block 10-25: committedSealSize=3
     - at block 26-60: committedSealSize=6
-- Unexpected behaviour (after addValidatorBlock)
+- Unexpected behavior (after addValidatorBlock)
   - CN6
     - at block 59: committedSealSize=6
   - CN7

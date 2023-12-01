@@ -1,13 +1,14 @@
 - Upgrade target: CN2-5
 - Upgrade start: 41
 - Upgrade end: 46
-- Expected behaviour
+- Expected behavior
   - Round changes
-- Unexpected behaviour
+- Unexpected behavior
   - CN1
     - at block 50, 59: committedSealSize=6
 
 Note: block timestamps
+
 ```
 40:1701408815
 41:1701408816

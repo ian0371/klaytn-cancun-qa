@@ -1,13 +1,13 @@
 - Upgrade target: CN2, CN3
 - removeValidatorBlock: 9
 - addValidatorBlock: 28
-- Expected behaviour
+- Expected behavior
   - CN1, CN4, CN5, CN8, CN9
     - at all blocks, committedSealSize=5
   - CN2, CN3
     - at blocks in 1-31: committedSealSize=5
     - at blocks in 32-60: committedSealSize=5 or 6
-- Unexpected behaviour (after addValidatorBlock)
+- Unexpected behavior (after addValidatorBlock)
   - CN5
     - at block 53, committedSealSize=6
   - CN6

@@ -2,10 +2,11 @@
 - Faulty node: CN3
 - Upgrade start: 6
 - Upgrade end: 10
-- Expected behaviour
+- Expected behavior
   - Round changes
 
 Note: block timestamps
+
 ```
 05:1701412599
 06:1701412600
@@ -13,8 +14,8 @@ Note: block timestamps
 08:1701412602
 09:1701412603
 10:1701412604
-11:1701412619 << RC
-12:1701412629 << RC
+11:1701412619 <<< RC
+12:1701412629 <<< RC
 13:1701412630
 14:1701412631
 15:1701412632
