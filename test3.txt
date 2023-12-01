@@ -1,0 +1,17 @@
+removedBlock: 9
+addedBlock: 20
+
+* CN1, CN6-9
+block,committeeSize,committedSealSize
+1,9,5
+...
+9,9,5
+10,5,3
+...
+20,5,3
+21,9,5
+
+* CN2-5
+1-9: 9,5
+10-20: 5,3
+21-: 9,5 or 9,6

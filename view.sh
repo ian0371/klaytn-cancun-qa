@@ -1,16 +1,27 @@
 #!/bin/bash
-source ./lib.sh
 
-target=$1
+getBlockWithConsensus() {
+	local cn=$1
+	local blocknum=$2
+	local fn="block-${blocknum}-from-cn$cn.json"
+	cast rpc klay_getBlockWithConsensusInfoByNumber $blocknum -r http://localhost:$((8551 + $cn - 1))
+	# echo "[cn$cn] $blocknum"
+	# echo "committeeSize=$(echo $output | jq '.committee | length')"
+	# echo "committedSealSize=$(kcn util decode-extra <(echo $output) | jq ".committedSealSize")"
+}
+
+cn=$1
 start=$2
 end=$3
 
-echo "* CN$((target + 1))"
+echo "* CN$cn"
 echo "block,committeeSize,committedSealSize"
 
 for i in $(seq $start $end); do
-	output=$(getBlockWithConsensus $target $i)
+	output=$(getBlockWithConsensus $cn $i)
 	committeeSize=$(echo $output | jq '.committee | length')
 	committedSealSize=$(kcn util decode-extra <(echo $output) | jq '.committedSealSize')
 	echo "$i,$committeeSize,$committedSealSize"
 done
+
+# for i in $(seq 1 9); do echo "$i $(output/cn$i/bin/kcn version)"; done

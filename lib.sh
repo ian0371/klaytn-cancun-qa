@@ -33,7 +33,7 @@ getBlock() {
 }
 
 upgrade() {
-	pushd "$ROOTDIR/output/cn$(($1 + 1))" >/dev/null
+	pushd "$ROOTDIR/output/cn$1" >/dev/null
 	bin/kcnd stop >/dev/null
 	rm -f bin/kcn
 	ln -s $ROOTDIR/kcn-v1.12.0 bin/kcn
@@ -44,7 +44,7 @@ upgrade() {
 addVal() {
 	local targets=()
 	for idx in $*; do
-		targets+=("${nodes[$idx]}")
+		targets+=("${nodes[$((idx - 1))]}")
 	done
 	local param=$(
 		IFS=,
@@ -56,21 +56,11 @@ addVal() {
 removeVal() {
 	local targets=()
 	for idx in $*; do
-		targets+=("${nodes[$idx]}")
+		targets+=("${nodes[$((idx - 1))]}")
 	done
 	local param=$(
 		IFS=,
 		echo "${targets[*]}"
 	)
 	cast rpc governance_vote governance.removevalidator $param -r $RPC
-}
-
-getBlockWithConsensus() {
-	local cn=$(($1 + 1))
-	local blocknum=$2
-	local fn="block-${blocknum}-from-cn$cn.json"
-	cast rpc klay_getBlockWithConsensusInfoByNumber $blocknum -r http://localhost:$((8551 + cn - 1))
-	# echo "[cn$cn] $blocknum"
-	# echo "committeeSize=$(echo $output | jq '.committee | length')"
-	# echo "committedSealSize=$(kcn util decode-extra <(echo $output) | jq ".committedSealSize")"
 }
