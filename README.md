@@ -1,3 +1,5 @@
+This repo is for testing the [quorum change](https://github.com/klaytn/klaytn/pull/2026) in case of 4x+1 validators.
+
 ## Prerequisites
 
 - dependencies
